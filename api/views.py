@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from .models import User, Note, Book
 from .serializers import UserSerializer, NoteSerializer, BookSerializer
+from .permissions import IsOwner
+
 
 
 # Create your views here.
@@ -16,7 +18,13 @@ class UserViewSet(viewsets.ModelViewSet):
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_class = [permissions.IsAuthenticated, IsOwner]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    permission_class = [permissions.IsAuthenticated]
+

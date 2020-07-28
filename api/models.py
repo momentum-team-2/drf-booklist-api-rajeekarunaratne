@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
 
 STATUS_CHOICES = {
     ('To_Read', 'To Read'),
@@ -22,3 +24,7 @@ class Note(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     note = models.TextField(max_length=1000)
     page_number = models.CharField(max_length=5, null=True, blank=True)
+
+
+
+

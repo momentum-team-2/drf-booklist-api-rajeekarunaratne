@@ -26,9 +26,10 @@ router.register('notes', api_views.NoteViewSet, basename='note')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('djoser.urls')),
-    path('api-auth/', include('djoser.urls.authtoken')),
-    path('api/', include(router.urls))
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.authtoken')),
+    path('api/', include(router.urls)),
+    path('api/', include('rest_framework.urls')),
 ]
 
 if settings.DEBUG:

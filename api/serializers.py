@@ -8,7 +8,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'url',
             'username',
-            'is_staff',
         ]
 
 class NoteSerializer(serializers.ModelSerializer):
@@ -22,6 +21,9 @@ class NoteSerializer(serializers.ModelSerializer):
         ]
 
 class BookSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()    
+    )
     notes = NoteSerializer(many=True, read_only=True)
 
     class Meta:
