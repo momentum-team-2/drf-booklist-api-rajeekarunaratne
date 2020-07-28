@@ -10,6 +10,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'username',
         ]
 
+class NestedNoteSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Note
+        fields = ['note']        
+
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
@@ -24,7 +29,7 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()    
     )
-    notes = NoteSerializer(many=True, read_only=True)
+    notes = NestedNoteSerializer(many=True)
 
     class Meta:
         model = Book

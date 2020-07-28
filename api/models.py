@@ -18,6 +18,8 @@ class Book(models.Model):
     author = models.CharField(max_length=100, null=True, blank=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='')
 
+    def __str__(self):
+        return f"{self.title}: {self.author}"
 
 class Note(models.Model):
     book = models.ForeignKey(to=Book, on_delete=models.CASCADE, related_name='notes')

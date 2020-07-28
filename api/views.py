@@ -19,6 +19,9 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_class = [permissions.IsAuthenticated, IsOwner]
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ['status']
+
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
